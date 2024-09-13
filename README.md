@@ -1,11 +1,12 @@
-# REST API for Geographical Measurements
+# REST API for Air Pollution Measurements
 
 ## Introduction
 
 This project is a REST API developed using Python's FastAPI framework. The API exposes two endpoints, `/measurements`, which allows users to query measurements data by filtering based on years and geographical entities (such as countries or regions) as well as `/docs`, which provides a Swagger UI for interactive documentation.
+The example dataset is https://www.kaggle.com/datasets/rejeph/air-pollution
 
-The data is managed using `pandas` to handle the underlying data as a DataFrame or basically to mock a database , and caching is implemented using `fastapi-cache2` to improve performance.
 The project uses `poetry` for dependency management, and `uvicorn` is used to run the FastAPI server. Unit tests are written using Python's built-in `unittest` module.
+Data is internally managed using `pandas DataFrames` to basically to mock a database, caching is implemented using `fastapi-cache2` to improve performance.
 
 Also, there is a example script in the data directory how one could import the data in a time series database like `InfluxDB` for further development.
 
