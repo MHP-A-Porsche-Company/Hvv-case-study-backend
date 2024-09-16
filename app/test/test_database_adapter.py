@@ -8,8 +8,8 @@ from src.database_adapter import get_filtered_data, Filter
 
 class TestDatabaseAdapter(unittest.TestCase):
 
-  @patch('src.database_adapter._get_data')
-  def test_get_filtered_data_without_filter(self, _get_data_mock):
+  @patch('src.database_adapter._get_base_data')
+  def test_get_filtered_data_without_filter(self, _get_base_data_mock):
     data = {
       "Entity": ["A", "B"],
       "Year": [2024, 2024],
@@ -21,7 +21,7 @@ class TestDatabaseAdapter(unittest.TestCase):
       "Black carbon": [1, 2],
       "Ammonia": [1, 2]
     }
-    _get_data_mock.return_value = pd.DataFrame(data = data)
+    _get_base_data_mock.return_value = pd.DataFrame(data = data)
 
     filter: Filter = None
 
@@ -34,8 +34,8 @@ class TestDatabaseAdapter(unittest.TestCase):
     self.assertEqual(row, ["Standard Deviation", 0.7071067811865476, 0.7071067811865476, 0.7071067811865476, 0.7071067811865476, 0.7071067811865476, 0.7071067811865476, 0.7071067811865476])
 
 
-  @patch('src.database_adapter._get_data')
-  def test_get_filtered_data_with_entity_filter(self, _get_data_mock):
+  @patch('src.database_adapter._get_base_data')
+  def test_get_filtered_data_with_entity_filter(self, _get_base_data_mock):
     data = {
       "Entity": ["A", "B"],
       "Year": [2024, 2024],
@@ -47,10 +47,11 @@ class TestDatabaseAdapter(unittest.TestCase):
       "Black carbon": [1, 2],
       "Ammonia": [1, 2]
     }
-    _get_data_mock.return_value = pd.DataFrame(data = data)
+    _get_base_data_mock.return_value = pd.DataFrame(data = data)
 
     filter: Filter = {
-      "Entity": ["A"]
+      "Entity": ["A"],
+      "Year": None,
     }
 
     actual = get_filtered_data(filter)
@@ -62,8 +63,8 @@ class TestDatabaseAdapter(unittest.TestCase):
     self.assertEqual(row, ["Standard Deviation", None, None, None, None, None, None, None])
 
 
-  @patch('src.database_adapter._get_data')
-  def test_get_filtered_data_with_year_filter(self, _get_data_mock):
+  @patch('src.database_adapter._get_base_data')
+  def test_get_filtered_data_with_year_filter(self, _get_base_data_mock):
     data = {
       "Entity": ["A", "B"],
       "Year": [2024, 2024],
@@ -75,10 +76,11 @@ class TestDatabaseAdapter(unittest.TestCase):
       "Black carbon": [1, 2],
       "Ammonia": [1, 2]
     }
-    _get_data_mock.return_value = pd.DataFrame(data = data)
+    _get_base_data_mock.return_value = pd.DataFrame(data = data)
 
     filter: Filter = {
-      "Year": [2024]
+      "Entity": None,
+      "Year": [2024],
     }
 
     actual = get_filtered_data(filter)
