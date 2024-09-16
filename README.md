@@ -99,3 +99,4 @@ A more advanced solution would be using Open Policy Agent in the Python applicat
 
 #### Encryption
 We would recommend enabling TLS / Https if the application is facing the public / private internet. Also use external services to manage and validate certificates.
+
