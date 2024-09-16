@@ -59,7 +59,7 @@ async def get_measurements(
     :param entities: The entities you want to query for
     :param years: The years you want to query for
     :param accept: Accept http header
-    :param group_by: How the data will be grouped, either "Entity" or "Year"
+    :param group_by: How the data will be grouped, either "entity" or "year"
     :return: json / csv
     """
 

@@ -13,7 +13,7 @@ def parameter_to_list(
     Convert a comma separated string to a list with given type
     :param parameter: The string to separate
     :param return_type: The type to return values in
-    :return:
+    :return: Returns a List of T values
     """
     if parameter is None:
         return None
