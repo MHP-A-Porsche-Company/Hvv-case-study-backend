@@ -1,6 +1,6 @@
 import logging
 from contextlib import asynccontextmanager
-from typing import List, Annotated, AsyncIterator
+from typing import List, Annotated, AsyncIterator, Optional
 
 from fastapi import FastAPI, Query, Header
 from fastapi_cache import FastAPICache
@@ -34,11 +34,15 @@ app = FastAPI(lifespan=lifespan)
 
 @cache(expire=60)
 @app.get(
+    path="/measurements/",
+    responses={**ENDPOINT_RESPONSE_TYPE},
+)
+@app.get(
     path="/measurements/{group_by}",
     responses={**ENDPOINT_RESPONSE_TYPE},
 )
 @cache(expire=60)
-def get_measurements(
+async def get_measurements(
     entities: str | None = Query(
         None,
         description=ENPOINT_PARAMETER_ENTITIES_DESCRIPTION
@@ -48,7 +52,7 @@ def get_measurements(
         description=ENPOINT_PARAMETER_YEARS_DESCRIPTION
     ),
     accept: Annotated[str | None, Header()] = None,
-    group_by: GroupByParameter | None = None
+    group_by: Optional[GroupByParameter | None] = None
 ):
     """
     Endpoint for fetching data, cached
